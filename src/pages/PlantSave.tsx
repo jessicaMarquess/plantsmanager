@@ -22,7 +22,7 @@ import colors from "../styles/colors";
 import fonts from "../styles/fonts";
 
 interface Params {
-  plant: PlantsProps
+  plant: PlantsProps;
 }
 
 export function PlantSave() {
@@ -53,59 +53,66 @@ export function PlantSave() {
     try {
       await savePlant({
         ...plant,
-        dateTimeNotification: selectedDateTime
+        dateTimeNotification: selectedDateTime,
       });
       navigation.navigate("Confirmation", {
-        title: 'Tudo certo!',
-        subtitle: 'Fique tranquilo, pois sempre iremos lhe lembrar de cuidar da sua plantinha com muito cuidado.',
-        buttonTitle: 'Muito obrigada!',
-        icon: 'hug',
-        nextScreen: 'MyPlant',
+        title: "Tudo certo!",
+        subtitle:
+          "Fique tranquilo, pois sempre iremos lhe lembrar de cuidar da sua plantinha com muito cuidado.",
+        buttonTitle: "Muito obrigada!",
+        icon: "hug",
+        nextScreen: "MyPlant",
       });
     } catch (error) {
-      Alert.alert(`Não foi possível salvar.`)
+      Alert.alert(`Não foi possível salvar.`);
     }
   }
 
   return (
-    <View style={styles.container}>
-      <View style={styles.plantInfo}>
-        <SvgFromUri uri={plant.photo} height={150} width={150} />
+    <ScrollView
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.container}
+    >
+      <View style={styles.container}>
+        <View style={styles.plantInfo}>
+          <SvgFromUri uri={plant.photo} height={150} width={150} />
 
-        <Text style={styles.plantName}>{plant.name}</Text>
-        <Text style={styles.plantAbout}>{plant.about}</Text>
-      </View>
-      <View>
-        <View style={styles.controller}>
-          <View style={styles.tipContainer}>
-            <Image source={waterdrop} style={styles.tipImage} />
-            <Text style={styles.tipText}>{plant.water_tips}</Text>
-          </View>
-          <Text style={styles.alertLabel}>
-            Escolha o melhor horário para ser lembrado(a):
-          </Text>
+          <Text style={styles.plantName}>{plant.name}</Text>
+          <Text style={styles.plantAbout}>{plant.about}</Text>
+        </View>
+        <View>
+          <View style={styles.controller}>
+            <View style={styles.tipContainer}>
+              <Image source={waterdrop} style={styles.tipImage} />
+              <Text style={styles.tipText}>{plant.water_tips}</Text>
+            </View>
+            <Text style={styles.alertLabel}>
+              Escolha o melhor horário para ser lembrado(a):
+            </Text>
 
-          {showDatePicker && (
-            <DateTimePicker
-              value={selectedDateTime}
-              mode="time"
-              display="spinner"
-              onChange={handleChangeTime}
-            />
-          )}
-           {
-            Platform.OS === 'android' && (
-              <TouchableOpacity style={styles.dateTimePickerButton} onPress={handleOpenDatetimePickerForAndroid}>
+            {showDatePicker && (
+              <DateTimePicker
+                value={selectedDateTime}
+                mode="time"
+                display="spinner"
+                onChange={handleChangeTime}
+              />
+            )}
+            {Platform.OS === "android" && (
+              <TouchableOpacity
+                style={styles.dateTimePickerButton}
+                onPress={handleOpenDatetimePickerForAndroid}
+              >
                 <Text style={styles.dateTimePickerText}>
-                  {`Mudar ${format(selectedDateTime, 'HH:mm')}`}
+                  {`Mudar ${format(selectedDateTime, "HH:mm")}`}
                 </Text>
               </TouchableOpacity>
-            )
-          }
-          <Button title="Cadastrar planta" onPress={handleSave} />
+            )}
+            <Button title="Cadastrar planta" onPress={handleSave} />
+          </View>
         </View>
       </View>
-    </View>
+    </ScrollView>
   );
 }
 

@@ -4,7 +4,7 @@ import { EnvironmentButton } from '../components/EnvironmentButton';
 import { useNavigation } from '@react-navigation/core';
 
 import { Header } from '../components/Header';
-import { PlantCardPrimary } from '../components/PlantCardSecondary';
+import { PlantCardSecondary } from '../components/PlantCardSecondary';
 import { Load } from '../components/Load';
 
 import api from '../services/api';
@@ -130,7 +130,7 @@ export function PlantSelect (){
           data={filteredPlants}
           keyExtractor={ item => String(item.id)}
           renderItem={({item}) => (
-            <PlantCardPrimary 
+            <PlantCardSecondary.PlantCardPrimary 
               data={item}
               onPress={()=> handlePlantSelect(item)}
             />
